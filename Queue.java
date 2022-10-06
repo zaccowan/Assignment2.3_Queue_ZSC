@@ -9,9 +9,8 @@
  * Fall/2022
  */
 public class Queue<T> implements QueueInterface<T> {
-	private Node<T> front = null;
-	private Node<T> back = null;
-	private int numInQueue = 0;
+	LinkedList<T> queueStorage = new LinkedList<T>();
+	
 	
 	/**
 	 * Queue constructor.
@@ -26,21 +25,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 */
 	Queue(T newEntry) {
 		Node<T> newNode = new Node<T>(newEntry);
-		
-		if( isEmpty() ) {
-			front = newNode;
-			back = null;
-			front.setNextNode(back);
-		} else if( numInQueue == 1) {
-			back = newNode;
-			front.setNextNode(back);
-			back.setNextNode(null);
-		} else {
-			back.setNextNode(newNode);
-			back = back.getNextNode();
-		}
-		
-		numInQueue += 1;
+		queueStorage.addNode(newNode);
 	}
 
 	/**
@@ -50,21 +35,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 */
 	public void enqueue(T newEntry) {
 		Node<T> newNode = new Node<T>(newEntry);
-		
-		if( isEmpty() ) {
-			front = newNode;
-			back = null;
-			front.setNextNode(back);
-		} else if( numInQueue == 1) {
-			back = newNode;
-			front.setNextNode(back);
-			back.setNextNode(null);
-		} else {
-			back.setNextNode(newNode);
-			back = back.getNextNode();
-		}
-		
-		numInQueue += 1;
+		queueStorage.addNode(newNode);
 	}
 
 	
@@ -74,12 +45,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 * @throws EmptyQueueException When queue is already empty.
 	 */
 	public Node<T> dequeue() {
-		if(isEmpty()) {
-			throw new EmptyQueueException();
-		}
-		Node<T> dequeuedEntry = front;
-		front = front.getNextNode();
-		return dequeuedEntry;
+		return queueStorage.removeFrontNode();
 	}
 
 	/**
@@ -91,7 +57,7 @@ public class Queue<T> implements QueueInterface<T> {
 		if(isEmpty()) {
 			throw new EmptyQueueException();
 		}
-		return front;
+		return queueStorage.head;
 	}
 	
 	/**
@@ -99,7 +65,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 * @return Node The node at the end of the queue.
 	 */
 	public Node<T> getBack() {
-		return back;
+		return queueStorage.tail;
 	}
 
 	/**
@@ -108,7 +74,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 */
 	public boolean isEmpty() {
 		boolean isEmpty = false;
-		if( front == null ) {
+		if( queueStorage.head == null ) {
 			isEmpty = true;
 		}
 		return isEmpty;
@@ -118,10 +84,10 @@ public class Queue<T> implements QueueInterface<T> {
 	 * Remove all items from the queue.
 	 */
 	public void clear() {
-		front.setNextNode(null);
-		front = null;
-		back = null;
-		numInQueue = 0;
+		queueStorage.head.setNextNode(null);
+		queueStorage.head = null;
+		queueStorage.tail = null;
+		queueStorage.length = 0;
 	}
 
 	/**
@@ -129,14 +95,14 @@ public class Queue<T> implements QueueInterface<T> {
 	 * @return int Number of items.
 	 */
 	public int getNumInQueue() {
-		return numInQueue;
+		return queueStorage.length;
 	}
 	
 	/**
 	 * Print Items in queue with default formating.
 	 */
 	public void printQueue() {
-		Node<T> currentNode = front;
+		Node<T> currentNode = queueStorage.head;
 		System.out.print("In Queue:\n");
 		while (currentNode != null) {
 			System.out.print("\t" + currentNode.getData() + "\n");
@@ -149,7 +115,7 @@ public class Queue<T> implements QueueInterface<T> {
 	 * @param message Message to present when printing.
 	 */
 	public void printQueue(String message) {
-		Node<T> currentNode = front;
+		Node<T> currentNode = queueStorage.head;
 		System.out.print( message + "\n");
 		while (currentNode != null) {
 			System.out.print("\t" + currentNode.getData() + "\n");

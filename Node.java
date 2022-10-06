@@ -1,70 +1,64 @@
 
-/**
- * Generic Node class to store data.
- * @author Zachary Cowan
- * @param <T> Generic type of data to store in node
- * @version 9/29/2022
- * Fall/2022
- */
-public class Node<T> {
-    private T data; // Entry in stack
-    private Node<T> next; // Link to next node
-    
-    
-    /**
-     * Constructor to set data in the node.
-     * @param dataPortion Data to set.
-     */
-    public Node(T dataPortion)
-    {
-       this(dataPortion, null);
-    } // end constructor
-    
-    /**
-     * Constructor to set data in the node and the next node.
-     * @param dataPortion Data to set.
-     * @param linkPortion Next node to link
-     */
-    public Node(T dataPortion, Node<T> linkPortion)
-    {
-       data = dataPortion;
-       next = linkPortion;
-    } // end constructor
-    
-    /**
-     * Get the data stored in the node.
-     * @return T data in node
-     */
-    public T getData()
-    {
-       return data;
-    } // end getData
-    
-    /**
-     * Set the data stored in the node.
-     * @param newData data in node
-     */
-    public void setData(T newData)
-    {
-       data = newData;
-    } // end setData
-    
-    /**
-     * Get the reference to the next linked node.
-     * @return Node Next linked node
-     */
-    public Node<T> getNextNode()
-    {
-       return next;
-    } // end getNextNode
-    
-    /**
-     * Set the reference to the next linked node.
-     * @param nextNode Next node to link
-     */
-    public void setNextNode(Node<T> nextNode)
-    {
-       next = nextNode;
-    } // end setNextNode
 
-} // end Node
+/**
+ * Generic form of Node class.
+ * @author njohnson3, Zachary Cowan
+ * @version 9/1/2022
+ */
+class Node<T> {
+	T data;
+	Node<T> nextNode;
+	public Node()
+	{
+		nextNode=null;
+		data=null;
+	}
+	public Node(T newData)
+	{
+		nextNode=null;
+		data=newData;
+	}
+	
+	/**
+	* Set the data of the node
+	* @param data Data to store in node
+	*/
+	public void setData(T data) {
+		this.data=data;
+	}
+	/**
+	* Get node data.
+	* @return The node data
+	*/
+	public T getData()
+	{
+		return data;
+	}
+	
+	/**
+	* Get the current node object
+	* @return The entire instance of node
+	*/
+	public Node<T> getNode() {
+		return this;
+	}
+	
+	/**
+	* Set pointer to next node.
+	* @param nextNode The node to link to
+	*/
+	public void setNextNode(Node<T> nextNode)
+	{
+		this.nextNode=nextNode;
+	}
+	/**
+	* Get next node.
+	* @return The next node pointer.
+	*/
+	public Node<T> getNextNode()
+	{
+		return nextNode;
+	}
+	
+	
+}
